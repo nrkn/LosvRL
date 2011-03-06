@@ -6,10 +6,9 @@ namespace LosvRLConsole
   {
     static void Main(string[] args)
     {
-      Console.WriteLine("LEGEND OF THE SOMETHING VILLAIN");
+      Console.WriteLine("Legend of the Cheese Golem");
       Console.WriteLine();
-      Console.WriteLine("Actually, I'm quite tired so will start tomorrow." );
-      Console.WriteLine("Press any key to disappointedly exit...");
+      Console.WriteLine("Generating map..." );
       Console.ReadKey();
     }
   }

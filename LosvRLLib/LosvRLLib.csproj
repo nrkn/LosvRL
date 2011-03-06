@@ -31,6 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NrknLib.ConsoleView">
+      <HintPath>..\..\NrknLib\Console\ConsoleView\bin\Debug\NrknLib.ConsoleView.dll</HintPath>
+    </Reference>
+    <Reference Include="NrknLib.Geometry">
+      <HintPath>..\..\NrknLib\Geometry\bin\Debug\NrknLib.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="NrknLib.Utilities">
+      <HintPath>..\..\NrknLib\Utilities\bin\Debug\NrknLib.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

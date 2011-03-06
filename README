@@ -13,6 +13,20 @@ Intent is for it to be browser-based if I have time to fix my console
 server/client code, if I do then also using jConsole:
 https://github.com/nrkn/jConsole
 
+Story (vague):
+  The village is renowned throughout the lands for its high quality cheese,
+  sourced from its legendary cheese mines. However the mines are necessarily far
+  from the village, the dense forest between the village and the mines being
+  overrun with all manner of dangerous creatures. Due to the hazards of
+  transporting the cheese back to the village the local sorceror fashioned a
+  huge golem out of (what else) cheese to help protect the cheese wagon during 
+  its trips to and from the mines. Unfortunately something went wrong and the 
+  golem turned on the villagers. It now mindlessly guards the cheese mines and
+  the supply has almost dried up... someone has to do something, and that 
+  someone is you.
+
+I'll be pushing out to Github as I go.
+  
 Plan:
   DONE:
     Movement, FOV, other basic base code

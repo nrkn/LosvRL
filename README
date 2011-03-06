@@ -1,0 +1,46 @@
+Legend of the Cheese Golem
+
+7DRL Challenge 2011:
+http://7drl.org/
+
+A homage to Seth Able Robinson's Legend of the Red Dragon
+http://en.wikipedia.org/wiki/Legend_of_the_Red_Dragon
+
+Using NrknLib:
+https://github.com/nrkn/NrknLib
+
+Intent is for it to be browser-based if I have time to fix my console 
+server/client code, if I do then also using jConsole:
+https://github.com/nrkn/jConsole
+
+Plan:
+  DONE:
+    Movement, FOV, other basic base code
+    
+  2011-03-07:
+    World generation
+    Persistence
+    Town generation
+    Actor stats
+  
+  2011-03-08:
+    Monsters
+    Portals
+    Weapon/armour shops
+    Messaging
+    
+  2011-03-09: 
+    Combat
+    Extra areas
+    Remaining shops/places in town
+    
+  2011-03-10:
+    Extra items/events
+    
+  2011-03-11:    
+    Balancing
+    
+  2011-03-12: 
+    Fix web console/build site
+    Full color
+    Polish

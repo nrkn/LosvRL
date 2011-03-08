@@ -17,6 +17,7 @@ namespace LosvRLConsole
         game.Tick( command );
         command = Console.ReadKey( true ).Key.ToCommand();
       } while( command != ConsoleKey.Escape.ToCommand() );
+      game.Save();
     }
   }
 

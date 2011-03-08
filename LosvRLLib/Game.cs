@@ -10,22 +10,23 @@ using NrknLib.Geometry.Interfaces;
 namespace LosvRLLib {
   public class Game {
     public Game( IConsoleView console ) {
-      var mapPersistence = new Persistence<Map>();
+      _mapPersistence = new Persistence<Map>();
 
-      if( File.Exists( mapFile ) ) {
-        _map = mapPersistence.LoadJson( mapFile );
+      if( File.Exists( MapFile ) ) {
+        _map = _mapPersistence.Load( MapFile );
       } else {
         _map = new Map();
         var generator = new Generator( _map );
         generator.GenerateLevel();
-        mapPersistence.SaveJson( _map, mapFile );
+        _mapPersistence.Save( _map, MapFile );
       }
       Console = console;
       UseBuffer = true;
     }
 
-    private const string mapFile = "map.js";
+    private const string MapFile = "map.bin";
     private readonly Map _map;
+    private readonly Persistence<Map> _mapPersistence;
     public IConsoleView Console { get; set; }
     public bool UseBuffer { get; set; }
 
@@ -101,6 +102,11 @@ namespace LosvRLLib {
       Console.Blit( tiles );
 
       return Console.Flush();
+    }
+
+    public void Save()
+    {
+      _mapPersistence.Save( _map, MapFile );
     }
 
     private string GetTile( Point point ) {

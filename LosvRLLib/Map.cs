@@ -1,7 +1,9 @@
-﻿using NrknLib.Geometry;
+﻿using System;
+using NrknLib.Geometry;
 using NrknLib.Geometry.Interfaces;
 
 namespace LosvRLLib {
+  [Serializable]
   public class Map {
     public Map() {
       Size = new Size( 750, 750 );

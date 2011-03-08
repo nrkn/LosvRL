@@ -1,28 +1,23 @@
 ﻿using System.IO;
-using System.Runtime.Serialization.Json;
-using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LosvRLLib {
   public class Persistence<T> where T : class {
-    public Persistence() {
-      _jsonSerializer = new DataContractJsonSerializer( typeof( T ) );
+    public T Load( string name )
+    {
+      var formatter = new BinaryFormatter();
+      var stream = new FileStream( name, FileMode.Open, FileAccess.Read, FileShare.Read );
+      var obj = (T)formatter.Deserialize(stream);
+      stream.Close();
+      return obj;
     }
 
-    private readonly DataContractJsonSerializer _jsonSerializer;
-    
-    public T LoadJson( string name ) {
-      var json = File.ReadAllText( name, Encoding.UTF8 );
-      var memoryStream = new MemoryStream( Encoding.UTF8.GetBytes( json ) );
-      var t = _jsonSerializer.ReadObject( memoryStream ) as T;
-      memoryStream.Close();
-      return t;
-    }
-
-    public void SaveJson( T obj, string name ) {
-      var memoryStream = new MemoryStream();
-      _jsonSerializer.WriteObject( memoryStream, obj );
-      var json = Encoding.Default.GetString( memoryStream.ToArray() );
-      File.WriteAllText( name, json, Encoding.UTF8 );    
+    public void Save( T obj, string name )
+    {
+      var formatter = new BinaryFormatter();
+      var stream = new FileStream( name, FileMode.Create, FileAccess.Write, FileShare.None );
+      formatter.Serialize( stream, obj );
+      stream.Close();      
     }
   }
 }

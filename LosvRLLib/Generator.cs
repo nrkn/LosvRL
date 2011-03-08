@@ -124,7 +124,6 @@ namespace LosvRLLib {
       _map.Noise = (Grid<byte>) new Grid<byte>( _map.Size ).Generate( 0.0525, 1.0, 0.75, 5 );
     }
 
-    //ƿ
     static string DoubleToForestItem( double value ) {
       return
         RandomHelper.Random.NextDouble() > value ?

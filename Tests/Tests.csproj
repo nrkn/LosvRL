@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ADA43B17-7D18-4968-B882-A437DB43B70B}</ProjectGuid>
+    <ProjectGuid>{B6005BC9-2C6C-49E3-995F-399A8C4F4F70}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LosvRLConsole</RootNamespace>
-    <AssemblyName>LosvRLConsole</AssemblyName>
+    <RootNamespace>Tests</RootNamespace>
+    <AssemblyName>Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -34,12 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NrknLib.Color, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NrknLib.Color">
       <HintPath>..\..\NrknLib\Color\bin\Debug\NrknLib.Color.dll</HintPath>
-    </Reference>
-    <Reference Include="NrknLib.ConsoleView">
-      <HintPath>..\..\NrknLib\Console\ConsoleView\bin\Debug\NrknLib.ConsoleView.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,12 +48,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LosvRLLib\LosvRLLib.csproj">
-      <Project>{AF4EFAE6-625D-455D-AAF3-131724866C33}</Project>
-      <Name>LosvRLLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

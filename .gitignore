@@ -22,6 +22,7 @@
 *.sdf
 ipch/
 obj/
+Testing
 [Bb]in
 [Dd]ebug*/
 [Rr]elease*/

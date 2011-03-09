@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NrknLib.Color, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\NrknLib\Color\bin\Debug\NrknLib.Color.dll</HintPath>
+    </Reference>
     <Reference Include="NrknLib.ConsoleView">
       <HintPath>..\..\NrknLib\Console\ConsoleView\bin\Debug\NrknLib.ConsoleView.dll</HintPath>
     </Reference>

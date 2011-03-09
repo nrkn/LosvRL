@@ -11,7 +11,7 @@ namespace LosvRLConsole
       var console = new SystemConsoleView();
       //.NET Console.MoveBufferArea is too slow for the buffering to be useful.
       //it's actually faster to just update the whole screen
-      var game = new Game( console ){ UseBuffer = false };
+      var game = new Game( console );
       var command = String.Empty;
       do {
         game.Tick( command );

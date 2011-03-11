@@ -37,6 +37,10 @@
     <Reference Include="NrknLib.Color">
       <HintPath>..\..\NrknLib\Color\bin\Debug\NrknLib.Color.dll</HintPath>
     </Reference>
+    <Reference Include="NrknLib.Geometry">
+      <HintPath>..\..\NrknLib\Geometry\bin\Debug\NrknLib.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="NrknLib.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

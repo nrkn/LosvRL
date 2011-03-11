@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NrknLib.Geometry;
 using NrknLib.Geometry.Extensions;
@@ -17,6 +18,7 @@ namespace LosvRLLib {
     public void GenerateLevel() {
       GenerateNoise();
       GenerateMountains();
+      GenerateHubs();
       GeneratePaths();
       GenerateRivers();
       GenerateWalls();
@@ -24,6 +26,25 @@ namespace LosvRLLib {
       GenerateTrees();
       GenerateBlocksPlayer();
       GenerateBlocksSight();
+      GenerateReachable();
+    }
+
+    private void GenerateHubs() {
+      _map.Hubs.Add( (Point) _map.PlayerLocation );
+      for( var i = 0; i < 20; i++ ) {
+        var point = new Point( RandomHelper.Random.Next( _map.Size.Width ), RandomHelper.Random.Next( _map.Size.Width ) );
+        while( _map.Mountains[ point ] || _map.Hubs.Contains( point ) ) {
+          point = new Point( RandomHelper.Random.Next( _map.Size.Width ), RandomHelper.Random.Next( _map.Size.Width ) );
+        }
+        _map.Hubs.Add( point );
+      }
+    }
+
+    private void GenerateReachable() {
+      var fill = _map.BlocksPlayer.FloodFill( _map.PlayerLocation );
+      foreach( var point in fill ) {
+        _map.Reachable[ point ] = true;
+      }
     }
 
     private void GenerateMountains() {
@@ -88,7 +109,7 @@ namespace LosvRLLib {
     private void GenerateBlocksSight() {
       _map.BlocksSight.SetEach(
         ( block, point ) =>
-          !_map.Paths[ point ] && ( 
+          ( !_map.Paths[ point ] && !_map.SilentPaths[ point ] ) && ( 
             _map.Mountains[ point ]
             || !( new[]{ ".", "t", "T" } ).Contains( _map.Trees[ point ] )
             || _map.Walls[ point ]
@@ -99,7 +120,7 @@ namespace LosvRLLib {
     private void GenerateBlocksPlayer() {
       _map.BlocksPlayer.SetEach(
         ( block, point ) =>
-          !_map.Paths[ point ] && ( 
+          ( !_map.Paths[ point ] && !_map.SilentPaths[ point ] ) && ( 
             _map.Mountains[ point ]
             || _map.Trees[ point ] != "."
             || _map.Walls[ point ]
@@ -156,6 +177,7 @@ namespace LosvRLLib {
     }
 
     private void GeneratePaths() {
+      GenerateSilentPaths();
       //var line1 = new Line( new Point( 1, 1 ), new Point( _map.Size.Width - 1, _map.Size.Height - 1 ) );
       //var line2 = new Line( new Point( 1, _map.Size.Height - 1 ), new Point( _map.Size.Width - 1, 1 ) );
       var line3 = new Line( new Point( 1, 1 ), _map.PlayerLocation );
@@ -167,6 +189,15 @@ namespace LosvRLLib {
 
       foreach( var point in points ) {
         _map.Paths[ point ] = true;
+      }
+    }
+
+    private void GenerateSilentPaths() {
+      var lines = _map.Hubs.Pairs( true ).Select( p => new Line( p.Item1, p.Item2 ) );
+      var points = lines.SelectMany( line => line.DrunkenWalk( 0.75, _map.Noise.Bounds ) ).Distinct();
+
+      foreach( var point in points ) {
+        _map.SilentPaths[ point ] = true;
       }
     }
 

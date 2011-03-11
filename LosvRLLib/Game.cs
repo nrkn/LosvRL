@@ -23,6 +23,7 @@ namespace LosvRLLib {
         generator.GenerateLevel();
         _mapPersistence.Save( _map, MapFile );
       }
+
       Console = console;
       Console.HideCursor();
     }
@@ -75,10 +76,10 @@ namespace LosvRLLib {
     private string GetTile( Point point ) {
       return
         !_map.Noise.Bounds.InBounds( point ) || !_map.Fov[ point ] && !_map.Seen[ point ] ? " "
-        : _map.Walls[ point ] && _map.Paths[ point ] ? "+"
+        : _map.Walls[ point ] && ( _map.Paths[ point ] || _map.SilentPaths[ point ] ) ? "+"
         : _map.Walls[ point ] ? "#"
-        : _map.Paths[ point ] && _map.Rivers[ point ] ? "="
-        : _map.Paths[ point ] ? "."
+        : ( _map.Paths[ point ] || _map.SilentPaths[ point ] ) && _map.Rivers[ point ] ? "="
+        : ( _map.Paths[ point ] || _map.SilentPaths[ point ] ) ? "."
         : _map.Rivers[ point ] ? "~"
         : _map.Mountains[ point ] ? "^"
         : _map.Trees[ point ];
@@ -130,6 +131,8 @@ namespace LosvRLLib {
       );
       File.WriteAllText( "map.ppm", color.ToPpm() );
       File.WriteAllText( "noise.pgm", _map.Noise.ToPgm() );
+      File.WriteAllText( "reachable.pbm", _map.Reachable.ToPbm() );
+      File.WriteAllText( "blocks.pbm", _map.BlocksPlayer.ToPbm() );
     }
 
     private Direction ExecuteAction( string command ) {

@@ -118,9 +118,11 @@ namespace LosvRLLib {
       var color = new Grid<Rgba>( _map.Size );
       color.SetEach(
         ( rgba, point ) => {
-          var cBack = GetBackgroundColor( point, true );
+          var cBack = GetBackgroundColor( point, true );          
           var fore = ConsoleToRgbaConverter.FormatColor( GetForegroundColor( new Point(), point, true ) );
-          var back = ConsoleToRgbaConverter.FormatColor( cBack );
+          var back = 
+            _map.SilentPaths[ point ] ? ConsoleToRgbaConverter.FormatColor( cBack ).Average( new Rgba( 0, 255, 0 ) ) 
+            : ConsoleToRgbaConverter.FormatColor( cBack );
           if( cBack == ConsoleColor.DarkGreen && _map.Trees[ point ] != "." ) {
             back = new Rgba( 0, 255, 0 );
             var noiseToLightness = ( ( _map.Noise[ point ] / 255.0 ) * 0.5 ) + 0.125;
@@ -130,6 +132,10 @@ namespace LosvRLLib {
         }
       );
       File.WriteAllText( "map.ppm", color.ToPpm() );
+      color.SetEach(
+        ( rgba, point ) => _map.Seen[ point ] ? rgba : new Rgba( 0, 0, 0 ).Average( rgba, 2 )        
+      );
+      File.WriteAllText( "seen.ppm", color.ToPpm() );
       File.WriteAllText( "noise.pgm", _map.Noise.ToPgm() );
       File.WriteAllText( "reachable.pbm", _map.Reachable.ToPbm() );
       File.WriteAllText( "blocks.pbm", _map.BlocksPlayer.ToPbm() );

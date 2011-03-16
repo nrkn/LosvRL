@@ -167,13 +167,72 @@ namespace LosvRLLib {
       //}
     }
 
-    private void GenerateRivers() {
-      //var line = new Line( new Point( 18, 1 ), new Point( _map.Size.Width - 20, _map.Size.Height - 1 ) );
-      //var points = line.DrunkenWalk( 0.75, _map.Rivers.Bounds ).Distinct();
+    private void GenerateRivers()
+    {
+      var edge = RandomHelper.Random.Next(4);
+      var start = GetRandomEdgePoint(edge);
 
-      //foreach( var point in points ) {
-      //  _map.Rivers[ point ] = true;
-      //}
+      var mid1 = GetRandomMidPoint();
+      var mid2 = GetRandomMidPoint();
+
+      var lines = new List<Line>
+      {
+        new Line(start, mid1),
+        new Line(mid1, mid2)
+      };
+
+      var rivers = RandomHelper.Random.Next( 6 ) + 2;
+      for( var i = 0; i < rivers; i++ )
+      {
+        var mid = RandomHelper.Random.Next(2) == 0 ? mid1 : mid2;
+        lines.Add(new Line(mid, GetRiverEnd(edge)));
+      }
+
+      var points = lines.SelectMany(line => line.DrunkenWalk(0.75, _map.Noise.Bounds)).Distinct();
+
+      foreach (var point in points)
+      {
+        _map.Rivers[point] = true;
+      }
+    }
+
+    private Point GetRandomMidPoint()
+    {
+      var midX = RandomHelper.Random.Next( _map.Size.Width / 2 ) + _map.Size.Width / 4;
+      var midY = RandomHelper.Random.Next( _map.Size.Height / 2 ) + _map.Size.Height / 4;
+      return new Point(midX, midY);
+    }
+
+    private IPoint GetRiverEnd(int edge)
+    {
+      var edge2 = RandomHelper.Random.Next( 4 );
+      while( edge2 == edge )
+      {
+        edge2 = RandomHelper.Random.Next( 4 );
+      }
+      return GetRandomEdgePoint(edge2);
+    }
+
+    private IPoint GetRandomEdgePoint(int edge)
+    {
+      IPoint start;
+      //pick an edge point
+      switch( edge )
+      {
+        case 0:
+          start = new Point(0, RandomHelper.Random.Next(_map.Size.Height));
+          break;
+        case 1:
+          start = new Point(_map.Size.Width - 1, RandomHelper.Random.Next(_map.Size.Height));
+          break;
+        case 2:
+          start = new Point(RandomHelper.Random.Next(_map.Size.Width), 0);
+          break;
+        default:
+          start = new Point(RandomHelper.Random.Next(_map.Size.Width), _map.Size.Height - 1);
+          break;
+      }
+      return start;
     }
 
     private void GeneratePaths() {

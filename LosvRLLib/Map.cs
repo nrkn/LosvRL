@@ -24,8 +24,7 @@ namespace LosvRLLib {
       Reachable = new Grid<bool>( Size );
       Fov = new Grid<bool>( Size );
       Seen = new Grid<bool>( Size );
-      Hubs = new List<Point>();
-      
+      Hubs = new List<Point>();      
     }
 
     public IPoint Center {
